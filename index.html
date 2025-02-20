@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你愿意领养我们吗？</title>
+    <style>
+        body{
+            background-color: #f1d5da;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #mainImage{
+            width: 200px;
+            transform: all 0.3s ease;
+        }
+
+        h1{
+            font-size: 28px;
+            color: #68495b;
+        }
+
+        button{
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #yes{
+            background-color: #d4818e;
+            color: white;
+        }
+        #no{
+            background-color: #6784b1;
+            color: white;
+            position: relative;
+        }
+
+        .yes-screen{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffdae0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="mainImage" src="img/1.jpg" alt="爱心">
+        <h1 id="question">你愿意领养我们吗？</h1>
+        <div class="buttons">
+            <button id="yes">可以</button>
+            <button id="no">不要</button>
+        </div>
+    </div>
+   <script>
+    let yesButton = document.getElementById("yes");
+let noButton = document.getElementById("no");
+let questionText = document.getElementById("question"); // 修正变量名
+let mainImage = document.getElementById("mainImage");
+
+let clickCount = 0;
+
+const noTexts = [
+    "妈咪你认真的吗？",
+    "要不要再想想？",
+    "不许选这个！",
+    "我们会很伤心的...",
+    "不要:(",
+    "我们不是你最爱的小猫小狗了嘛...",
+    "妈咪...",
+    "不能丢下我们...",
+    "我们最爱你了。"
+    
+];
+
+noButton.addEventListener("click", function() {
+    clickCount++;
+
+    let yesSize = 1 + (clickCount * 1.2);
+    yesButton.style.transform = `scale(${yesSize})`;
+
+    let noOffset = clickCount * 50;
+    noButton.style.transform = `translateX(${noOffset}px)`;
+
+    let moveUp = clickCount * 25;
+    mainImage.style.transform = `translateY(-${moveUp}px)`;
+    questionText.style.transform = `translateY(-${moveUp}px)`; // 修正拼写错误
+
+    if (clickCount <= noTexts.length) {
+        noButton.innerText = noTexts[clickCount - 1];
+    }
+    if (clickCount === 1) mainImage.src = "img/2.jpg";
+    if (clickCount === 2) mainImage.src = "img/4.jpg";
+    if (clickCount === 3) mainImage.src = "img/5.jpg";
+    if (clickCount === 4) mainImage.src = "img/3.jpg";
+    if (clickCount ===5) mainImage.src = "img/3.jpg";
+	if (clickCount ===6) mainImage.src = "img/3.jpg";
+});
+
+yesButton.addEventListener("click", function() {
+    document.body.innerHTML = `
+    <div class="yes-screen">
+        <h1 class="yes-text">！！！爱你妈咪！！</h1>
+        <img id="mainImage" src="img/yes.jpg" alt="爱心">
+    </div>
+    `;
+    document.body.style.overflow = "hidden";
+});
+</script>
+</body>
+</html>
